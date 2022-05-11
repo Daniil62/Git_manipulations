@@ -2,7 +2,7 @@ package ru.job4j.examples;
 
 import java.time.LocalDate;
 
-public class User {
+public class User implements Comparable<User> {
 
     private final String lastName;
     private final String name;
@@ -70,5 +70,21 @@ public class User {
                 && patronymic.equals(((User) obj).patronymic)
                 && birthday.equals(((User) obj).birthday)
                 && info.equals(((User) obj).info);
+    }
+
+    @Override
+    public int compareTo(User o) {
+        int result;
+        result = lastName.compareTo(o.lastName);
+        if (result == 0) {
+            result = name.compareTo(o.name);
+            if (result == 0) {
+                result = patronymic.compareTo(o.patronymic);
+                if (result == 0) {
+                    result = birthday.toString().compareTo(o.birthday.toString());
+                }
+            }
+        }
+        return result;
     }
 }
